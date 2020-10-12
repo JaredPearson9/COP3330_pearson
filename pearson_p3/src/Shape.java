@@ -1,157 +1,93 @@
-abstract class Shape extends Shape2D{
+abstract class Shape{
 
-    String getName() {
-        String name = "";
+    abstract String getName();
 
-        if (this instanceof Square){
-            name = "square";
-        }
-        if (this instanceof Triangle){
-            name = "triangle";
-        }
-        if (this instanceof Circle){
-            name = "circle";
-        }
-        if (this instanceof Cube){
-            name = "cube";
-        }
-        if (this instanceof Pyramid){
-            name = "pyramid";
-        }
-        if (this instanceof Sphere){
-            name = "sphere";
-        }
-
-        return name;
-    }
+    abstract double getArea();
 
 }
 
-abstract class Shape2D extends Shape3D{
-
-    double getArea() {
-        double area = 0;
-
-        if (this instanceof Square){
-            area = ((Square) this).getAreaSquare();
-        }
-        if (this instanceof Triangle){
-            area = ((Triangle) this).getAreaTriangle();
-        }
-        if (this instanceof Circle){
-            area = ((Circle) this).getAreaCircle();
-        }
-        if (this instanceof Cube){
-            area = ((Cube) this).getAreaCube();
-        }
-        if (this instanceof Pyramid){
-            area = ((Pyramid) this).getAreaPyramid();
-        }
-        if (this instanceof Sphere){
-            area = ((Sphere) this).getAreaSphere();
-        }
-
-        return area;
-    }
+abstract class Shape2D extends Shape{
 
 }
 
-abstract class Shape3D{
+abstract class Shape3D extends Shape{
 
-    double getArea() {
-        double area = 0;
-
-        if (this instanceof Square){
-            area = ((Square) this).getAreaSquare();
-        }
-        if (this instanceof Triangle){
-            area = ((Triangle) this).getAreaTriangle();
-        }
-        if (this instanceof Circle){
-            area = ((Circle) this).getAreaCircle();
-        }
-        if (this instanceof Cube){
-            area = ((Cube) this).getAreaCube();
-        }
-        if (this instanceof Pyramid){
-            area = ((Pyramid) this).getAreaPyramid();
-        }
-        if (this instanceof Sphere){
-            area = ((Sphere) this).getAreaSphere();
-        }
-
-        return area;
-    }
-
-    double getVolume() {
-        double volume = 0;
-
-        if (this instanceof Cube){
-            volume = ((Cube) this).getVolumeCube();
-        }
-        if (this instanceof Pyramid){
-            volume = ((Pyramid) this).getVolumePyramid();
-        }
-        if (this instanceof Sphere){
-            volume = ((Sphere) this).getVolumeSphere();
-        }
-
-        return volume;
-    }
+    abstract double getVolume();
 
 }
 
-class Square extends Shape {
+class Square extends Shape2D{
     double length;
     Square(double length) {
         this.length = length;
     }
-    double getAreaSquare(){
+
+    String getName(){
+        return "square";
+    }
+
+    double getArea(){
         return length * length;
     }
 
 }
 
-class Triangle extends Shape{
+class Triangle extends Shape2D{
     double base;
     double height;
     Triangle(double base,double height) {
         this.base = base;
         this.height = height;
     }
-    double getAreaTriangle(){
+
+    String getName(){
+        return "triangle";
+    }
+
+    double getArea(){
         return (base * height) / 2.0;
     }
+
 }
 
-class Circle extends Shape{
+class Circle extends Shape2D{
     double radius;
     Circle(double radius) {
         this.radius = radius;
     }
-    double getAreaCircle(){
+
+    String getName(){
+        return "circle";
+    }
+
+    double getArea(){
         return Math.PI * (radius * radius);
     }
+
 }
 
-class Cube extends Shape{
+class Cube extends Shape3D{
     double length;
 
     Cube(double length) {
         this.length = length;
     }
 
-    double getAreaCube(){
+    String getName(){
+        return "cube";
+    }
+
+    double getArea(){
         return (length * length) * 6.0;
     }
 
-    double getVolumeCube(){
+    double getVolume(){
         return (length * length * length);
     }
 
 }
 
-class Pyramid extends Shape{
+class Pyramid extends Shape3D{
     double length;
     double width;
     double height;
@@ -162,28 +98,36 @@ class Pyramid extends Shape{
         this.height = height;
     }
 
-    double getAreaPyramid(){
+    String getName(){
+        return "pyramid";
+    }
+
+    double getArea(){
         return (length * width) + length * Math.sqrt(((width/2.0) * (width/2.0)) + (height * height)) + width * Math.sqrt(((length/2.0) * (length/2.0)) + (height * height));
     }
 
-    double getVolumePyramid(){
+    double getVolume(){
         return (length * width * height) / 3.0;
     }
 
 }
 
-class Sphere extends Shape{
+class Sphere extends Shape3D{
     double radius;
 
     Sphere(double radius) {
         this.radius = radius;
     }
 
-    double getAreaSphere(){
+    String getName(){
+        return "sphere";
+    }
+
+    double getArea(){
         return 4.0 * Math.PI * (radius * radius);
     }
 
-    double getVolumeSphere(){
+    double getVolume(){
         return (4.0/3.0) * Math.PI * (radius * radius * radius);
     }
 
