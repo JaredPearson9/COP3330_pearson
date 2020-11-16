@@ -239,5 +239,4 @@ public class TaskListTest {
         TL.add(item);
         assertThrows(IndexOutOfBoundsException.class , () -> TL.tasks.get(1).setComplete(false));
     }
-
 }

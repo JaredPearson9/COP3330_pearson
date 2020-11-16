@@ -64,20 +64,10 @@ public class TaskList {
             System.out.println(" ");
 
         } catch (FileNotFoundException ex) {
-            System.out.println("Unable to find the file, make sure the file you are trying to load is in the same directory");
+            System.out.println("Unable to find the file, make sure the file you are trying to load is in the same directory, starting a new list instead");
         } catch (Exception ex) {
             System.out.println("An unexpected error has occurred");
             ex.printStackTrace();
         }
     }
-    //shall contain 0 or more task items
-
-    //taskList function letting user view current task list
-    //taskList function letting user add an item to current task list
-    //taskList function letting user edit an item in the current task list
-    //taskList function letting user remove item from current task list
-    //taskList function to mark item as complete
-    //taskList function to unmark item as complete
-    //taskList function to save current list
-
 }
