@@ -16,7 +16,7 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public void set(int index,TaskItem task){
+    public void edit(int index,TaskItem task){
         tasks.set(index,task);
     }
 
@@ -35,8 +35,9 @@ public class TaskList {
             System.out.println(" ");
 
         } catch (FileNotFoundException ex) {
-            System.out.println("Unable to find the file...");
+            System.out.println("Unable to find the file, make sure to enter at least 1 character");
         } catch (Exception ex) {
+            System.out.println("An unexpected error has occurred");
             ex.printStackTrace();
         }
     }
@@ -63,8 +64,9 @@ public class TaskList {
             System.out.println(" ");
 
         } catch (FileNotFoundException ex) {
-            System.out.println("Unable to find the file...");
+            System.out.println("Unable to find the file, make sure the file you are trying to load is in the same directory");
         } catch (Exception ex) {
+            System.out.println("An unexpected error has occurred");
             ex.printStackTrace();
         }
     }

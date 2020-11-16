@@ -18,9 +18,11 @@ public class App {
 
             try {
                 choice = input.nextInt();
-            }catch(InputMismatchException ex) {
+            } catch(InputMismatchException ex) {
                 System.out.println("Please enter an integer");
                 input.nextLine();
+            } catch(Exception ex){
+                System.out.println("An unexpected error has occurred");
             }
 
             //makes a new task list
@@ -152,6 +154,9 @@ public class App {
                     } catch (TaskItem.InvalidDueDateException ex) {
                         System.out.println("due date is not valid; must be of the form YYYY-MM-DD");
                         System.out.println(" ");
+                    } catch(Exception ex){
+                        System.out.println("An unexpected error has occurred");
+                        retry = 0;
                     }
                 }
             }
@@ -168,7 +173,7 @@ public class App {
                         int j = input.nextInt();
                         input.nextLine();
                         TaskItem newItem = new TaskItem(editTaskItemTitle(), editTaskItemDescription(), editTaskItemDueDate(),false);
-                        currentTL.set(j, newItem);
+                        currentTL.edit(j, newItem);
                         retry = 0;
                     } catch (IndexOutOfBoundsException ex) {
                         System.out.println("Index is out of bounds for task number chosen, choose an integer value to the left of one of the tasks");
@@ -183,6 +188,9 @@ public class App {
                     } catch (TaskItem.InvalidDueDateException ex) {
                         System.out.println("due date is not valid; must be of the form YYYY-MM-DD");
                         System.out.println(" ");
+                    } catch(Exception ex){
+                        System.out.println("An unexpected error has occurred");
+                        retry = 0;
                     }
                 }
             }
@@ -212,6 +220,9 @@ public class App {
                         System.out.println("Please enter an integer");
                         System.out.println(" ");
                         input.nextLine();
+                    } catch(Exception ex){
+                        System.out.println("An unexpected error has occurred");
+                        retry = 0;
                     }
                 }
             }
@@ -241,6 +252,9 @@ public class App {
                         System.out.println("Please enter an integer");
                         System.out.println(" ");
                         input.nextLine();
+                    } catch(Exception ex){
+                        System.out.println("An unexpected error has occurred");
+                        retry = 0;
                     }
                 }
             }
@@ -270,6 +284,9 @@ public class App {
                         System.out.println("Please enter an integer");
                         System.out.println(" ");
                         input.nextLine();
+                    } catch(Exception ex){
+                        System.out.println("An unexpected error has occurred");
+                        retry = 0;
                     }
                 }
             }
