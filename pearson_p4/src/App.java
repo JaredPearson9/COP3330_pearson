@@ -125,69 +125,82 @@ public class App {
 
             //edit an item
             if (choice2 == 3) {
-                displayCurrentTasks(currentTL);
 
-                int retry = 1;
+                if(currentTL.tasks.size() == 0){
+                    System.out.print("There are no tasks to edit");
+                }
 
-                while (retry != 0) {
-                    try {
-                        System.out.print("Which task will you edit (enter one of the integers on the left of the tasks)? ");
-                        int j = Integer.parseInt(input.nextLine());
-                        TaskItem newItem = new TaskItem(editTaskItemTitle(), editTaskItemDescription(), editTaskItemDueDate(),false);
-                        currentTL.edit(j, newItem);
-                        retry = 0;
-                    } catch (IndexOutOfBoundsException ex) {
-                        System.out.println("Index is out of bounds for task number chosen, choose an integer value to the left of one of the tasks");
-                        System.out.println(" ");
-                    } catch(InputMismatchException ex){
-                        System.out.println("Please enter an integer");
-                        System.out.println(" ");
-                        input.nextLine();
-                    } catch (TaskItem.InvalidTitleException ex) {
-                        System.out.println("title is not valid; must be at least 1 character long");
-                        System.out.println(" ");
-                    } catch (TaskItem.InvalidDueDateException ex) {
-                        System.out.println("due date is not valid; must be of the form YYYY-MM-DD");
-                        System.out.println(" ");
-                    } catch(NumberFormatException ex) {
-                        System.out.println("Please enter an integer");
-                    } catch(Exception ex){
-                        System.out.println("An unexpected error has occurred");
-                        retry = 0;
+                if(currentTL.tasks.size() != 0) {
+                    displayCurrentTasks(currentTL);
+
+                    int retry = 1;
+
+                    while (retry != 0) {
+                        try {
+                            System.out.print("Which task will you edit (enter one of the integers on the left of the tasks)? ");
+                            int j = Integer.parseInt(input.nextLine());
+                            TaskItem newItem = new TaskItem(editTaskItemTitle(), editTaskItemDescription(), editTaskItemDueDate(), false);
+                            currentTL.edit(j, newItem);
+                            retry = 0;
+                        } catch (IndexOutOfBoundsException ex) {
+                            System.out.println("Index is out of bounds for task number chosen, choose an integer value to the left of one of the tasks");
+                            System.out.println(" ");
+                        } catch (InputMismatchException ex) {
+                            System.out.println("Please enter an integer");
+                            System.out.println(" ");
+                            input.nextLine();
+                        } catch (TaskItem.InvalidTitleException ex) {
+                            System.out.println("title is not valid; must be at least 1 character long");
+                            System.out.println(" ");
+                        } catch (TaskItem.InvalidDueDateException ex) {
+                            System.out.println("due date is not valid; must be of the form YYYY-MM-DD");
+                            System.out.println(" ");
+                        } catch (NumberFormatException ex) {
+                            System.out.println("Please enter an integer");
+                        } catch (Exception ex) {
+                            System.out.println("An unexpected error has occurred");
+                            retry = 0;
+                        }
                     }
                 }
             }
 
             //remove an item
             if (choice2 == 4) {
-                displayCurrentTasks(currentTL);
-
-                int retry = 1;
-
                 if(currentTL.tasks.size() == 0){
-                    System.out.println("There are no tasks to remove");
-                    System.out.println(" ");
-                    retry = 0;
+                    System.out.print("There are no tasks to remove");
                 }
 
-                while (retry != 0) {
-                    try {
-                        System.out.print("Which task will you remove (enter one of the integers on the left of the tasks)? ");
-                        int j = Integer.parseInt(input.nextLine());
+                if(currentTL.tasks.size() != 0) {
+                    displayCurrentTasks(currentTL);
 
-                        currentTL.remove(j);
-                        retry = 0;
-                    } catch (IndexOutOfBoundsException ex) {
-                        System.out.println("Index is out of bounds for task number chosen, choose an integer value to the left of one of the tasks");
+                    int retry = 1;
+
+                    if (currentTL.tasks.size() == 0) {
+                        System.out.println("There are no tasks to remove");
                         System.out.println(" ");
-                    } catch(InputMismatchException ex){
-                        System.out.println("Please enter an integer");
-                        System.out.println(" ");
-                    } catch(NumberFormatException ex) {
-                        System.out.println("Please enter an integer");
-                    } catch(Exception ex){
-                        System.out.println("An unexpected error has occurred");
                         retry = 0;
+                    }
+
+                    while (retry != 0) {
+                        try {
+                            System.out.print("Which task will you remove (enter one of the integers on the left of the tasks)? ");
+                            int j = Integer.parseInt(input.nextLine());
+
+                            currentTL.remove(j);
+                            retry = 0;
+                        } catch (IndexOutOfBoundsException ex) {
+                            System.out.println("Index is out of bounds for task number chosen, choose an integer value to the left of one of the tasks");
+                            System.out.println(" ");
+                        } catch (InputMismatchException ex) {
+                            System.out.println("Please enter an integer");
+                            System.out.println(" ");
+                        } catch (NumberFormatException ex) {
+                            System.out.println("Please enter an integer");
+                        } catch (Exception ex) {
+                            System.out.println("An unexpected error has occurred");
+                            retry = 0;
+                        }
                     }
                 }
             }
@@ -282,9 +295,15 @@ public class App {
 
             //saves the current list to a file
             if (choice2 == 7) {
-                System.out.print("Enter the filename to save as: ");
-                String filename = input.nextLine();
-                currentTL.write(filename);
+                if(currentTL.tasks.size() == 0){
+                    System.out.print("There are no tasks to save");
+                }
+
+                if(currentTL.tasks.size() != 0) {
+                    System.out.print("Enter the filename to save as: ");
+                    String filename = input.nextLine();
+                    currentTL.write(filename);
+                }
             }
         }
     }
