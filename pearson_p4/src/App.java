@@ -1,12 +1,13 @@
 import java.util.*;
 
 public class App {
-    private static Scanner input = new Scanner(System.in);
+    private static final Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
         int choice = 0;
 
         while(choice != 3) {
+            System.out.println(" ");
             System.out.println("main menu");
             System.out.println("---------");
             System.out.println("1) create a new list");
@@ -15,7 +16,12 @@ public class App {
             System.out.println(" ");
             System.out.print(">");
 
-            choice = input.nextInt();
+            try {
+                choice = input.nextInt();
+            }catch(InputMismatchException ex) {
+                System.out.println("Please enter an integer");
+                input.nextLine();
+            }
 
             //makes a new task list
             if (choice == 1) {
@@ -27,13 +33,19 @@ public class App {
                 basicTaskListMenu(currentTaskList);
             }
 
-            //loads a saved task list from a text file
+            //loads a saved task list from a file
             if (choice == 2) {
+                input.nextLine();
+                System.out.print("Enter the filename to load: ");
+                String filename = input.nextLine();
 
-                System.out.println("2 is not yet implemented");
+                TaskList currentTaskList = new TaskList();
+                currentTaskList.load(filename);
+
+                basicTaskListMenu(currentTaskList);
             }
 
-            //informs the user if they haven't chosen one of the options
+            //informs the user if they haven't chosen a valid option
             if(choice != 1 && choice != 2 && choice != 3){
                 System.out.println("not a valid choice, type 1, 2, or 3");
             }
@@ -78,10 +90,10 @@ public class App {
         TaskItem task;
         for(int i = 0; i < currentTL.tasks.size(); i++ ) {
             task = currentTL.tasks.get(i);
-            if(task.getTaskItemComplete() == false) {
+            if(!task.getTaskItemComplete()) {
                 System.out.println(i + ") [" + task.getTaskItemDueDate() + "] " + task.getTaskItemTitle() + ": " + task.getTaskItemDescription());
             }
-            if(task.getTaskItemComplete() == true) {
+            if(task.getTaskItemComplete()) {
                 System.out.println(i + ") *** [" + task.getTaskItemDueDate() + "] " + task.getTaskItemTitle() + ": " + task.getTaskItemDescription());
             }
         }
@@ -94,6 +106,7 @@ public class App {
 
         //menu displayed until option 8 is chosen
         while(choice2 != 8) {
+            System.out.println(" ");
             System.out.println("List Operation Menu");
             System.out.println("-------------------");
             System.out.println(" ");
@@ -108,7 +121,12 @@ public class App {
             System.out.println(" ");
             System.out.print(">");
 
-            choice2 = input.nextInt();
+            try {
+                choice2 = input.nextInt();
+            } catch(InputMismatchException ex) {
+                System.out.println("Please enter an integer");
+                input.nextLine();
+            }
 
             //view the list
             if (choice2 == 1) {
@@ -124,7 +142,7 @@ public class App {
 
                 while (retry != 0) {
                     try {
-                        TaskItem item = new TaskItem(obtainTaskItemTitle(), obtainTaskItemDescription(), obtainTaskItemDueDate());
+                        TaskItem item = new TaskItem(obtainTaskItemTitle(), obtainTaskItemDescription(), obtainTaskItemDueDate(),false);
                         currentTL.add(item);
                         System.out.println(" ");
                         retry = 0;
@@ -149,7 +167,7 @@ public class App {
                         System.out.print("Which task will you edit (enter one of the integers on the left of the tasks)? ");
                         int j = input.nextInt();
                         input.nextLine();
-                        TaskItem newItem = new TaskItem(editTaskItemTitle(), editTaskItemDescription(), editTaskItemDueDate());
+                        TaskItem newItem = new TaskItem(editTaskItemTitle(), editTaskItemDescription(), editTaskItemDueDate(),false);
                         currentTL.set(j, newItem);
                         retry = 0;
                     } catch (IndexOutOfBoundsException ex) {
@@ -256,16 +274,12 @@ public class App {
                 }
             }
 
-            //saves the current list to a text file
+            //saves the current list to a file
             if (choice2 == 7) {
                 input.nextLine();
                 System.out.print("Enter the filename to save as: ");
                 String filename = input.nextLine();
                 currentTL.write(filename);
-
-                System.out.println("Task list has been saved");
-                System.out.println(" ");
-
             }
 
             if (choice2 != 1 && choice2 != 2 && choice2 != 3 && choice2 != 4 && choice2 != 5 && choice2 != 6 && choice2 != 7 && choice2 != 8) {

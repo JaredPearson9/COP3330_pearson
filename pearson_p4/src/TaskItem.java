@@ -3,12 +3,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class TaskItem {
-    private String title;
-    private String description;
-    private String dueDate;
-    private boolean complete = false;
+    private final String title;
+    private final String description;
+    private final String dueDate;
+    private boolean complete;
 
-    public TaskItem(String title, String description, String dueDate){
+    public TaskItem(String title, String description, String dueDate, boolean complete){
 
         if(isTitleValid(title)){
             this.title = title;
@@ -23,6 +23,8 @@ public class TaskItem {
         } else{
             throw new InvalidDueDateException("due date is not valid; must be of the form YYYY-MM-DD");
         }
+
+        this.complete = complete;
 
     }
 
@@ -61,13 +63,13 @@ public class TaskItem {
         this.complete = complete;
     }
 
-    class InvalidTitleException extends IllegalArgumentException {
+    static class InvalidTitleException extends IllegalArgumentException {
         public InvalidTitleException(String msg) {
             super(msg);
         }
     }
 
-    class InvalidDueDateException extends IllegalArgumentException {
+    static class InvalidDueDateException extends IllegalArgumentException {
         public InvalidDueDateException(String msg) {
             super(msg);
         }

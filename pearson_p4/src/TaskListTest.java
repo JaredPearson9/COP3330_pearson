@@ -6,7 +6,7 @@ public class TaskListTest {
     @Test
     public void addingTaskItemsIncreasesSize(){
         TaskList TL = new TaskList();
-        TL.add(new TaskItem("task 1", "","2020-01-01"));
+        TL.add(new TaskItem("task 1", "","2020-01-01",false));
         assertEquals(TL.tasks.size(),1);
     }
 
