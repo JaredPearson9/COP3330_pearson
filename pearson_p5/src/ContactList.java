@@ -58,7 +58,7 @@ public class ContactList {
                 contacts.add(contact);
             }
 
-            System.out.println("Task list has been loaded");
+            System.out.println("Contact list has been loaded");
             System.out.println(" ");
 
         } catch (FileNotFoundException ex) {
