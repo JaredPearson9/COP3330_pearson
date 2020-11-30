@@ -26,6 +26,7 @@ public class TaskList {
 
     public void write(String filename) {
         try(Formatter output = new Formatter(filename)) {
+            output.format("tasklist%n");
             for(int i = 0; i < tasks.size(); i++) {
                 TaskItem task = tasks.get(i);
                 output.format("%s;%s;%s;%b%n", task.getTaskItemTitle(), task.getTaskItemDescription(), task.getTaskItemDueDate(), task.getTaskItemComplete());
@@ -46,6 +47,11 @@ public class TaskList {
         try {
             File fileObj = new File(filename);
             Scanner reader = new Scanner(fileObj);
+
+            if(!reader.nextLine().equals("tasklist")){
+                System.out.println("The file loaded is not a task list, starting a new task list instead");
+                return;
+            }
 
             while(reader.hasNextLine()){
 
