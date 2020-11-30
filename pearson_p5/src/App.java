@@ -57,7 +57,7 @@ public class App {
             System.out.println("---------");
             System.out.println("1) create a new list");
             System.out.println("2) load an existing list");
-            System.out.println("3) quit program");
+            System.out.println("3) quit");
             System.out.println(" ");
             System.out.print(">");
 

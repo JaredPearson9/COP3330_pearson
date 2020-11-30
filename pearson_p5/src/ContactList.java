@@ -27,6 +27,7 @@ public class ContactList {
 
     public void write(String filename) {
         try(Formatter output = new Formatter(filename)) {
+            output.format("contactlist%n");
             for(int i = 0; i < contacts.size(); i++) {
                 ContactItem contact = contacts.get(i);
                 output.format("%s;%s;%s;%s%n", contact.getContactItemFirstName(), contact.getContactItemLastName(), contact.getContactItemPhoneNumber(), contact.getContactItemEmailAddress());
@@ -48,14 +49,36 @@ public class ContactList {
             File fileObj = new File(filename);
             Scanner reader = new Scanner(fileObj);
 
+            if(!reader.nextLine().equals("contactlist")){
+                System.out.println("The file loaded is not a contact list, starting a new contact list instead");
+                return;
+            }
+
             while(reader.hasNextLine()){
 
                 String line = reader.nextLine();
 
                 String[] stringArray = line.split(";");
 
-                ContactItem contact = new ContactItem(stringArray[0], stringArray[1], stringArray[2], stringArray[3]);
-                contacts.add(contact);
+                if( stringArray.length == 1) {
+                    ContactItem contact = new ContactItem(stringArray[0], "", "", "");
+                    contacts.add(contact);
+                }
+
+                if( stringArray.length == 2) {
+                    ContactItem contact = new ContactItem(stringArray[0], stringArray[1], "", "");
+                    contacts.add(contact);
+                }
+
+                if( stringArray.length == 3) {
+                    ContactItem contact = new ContactItem(stringArray[0], stringArray[1], stringArray[2], "");
+                    contacts.add(contact);
+                }
+
+                if( stringArray.length == 4) {
+                    ContactItem contact = new ContactItem(stringArray[0], stringArray[1], stringArray[2], stringArray[3]);
+                    contacts.add(contact);
+                }
             }
 
             System.out.println("Contact list has been loaded");
