@@ -17,7 +17,7 @@ public class ContactList {
         contacts.add(contact);
     }
 
-    public void edit(int index,ContactItem contact){
+    public void edit(int index, ContactItem contact){
         contacts.set(index,contact);
     }
 
