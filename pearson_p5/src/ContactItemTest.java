@@ -35,36 +35,55 @@ public class ContactItemTest {
 
     @Test
     public void editingFailsWithAllBlankValues(){
-        assertThrows(ContactItem.InvalidContactItemException.class , () -> new ContactItem(" ","", "    ", ""));
+        ContactItem contact = new ContactItem("first","last", "423-000-0234", "email@email.com");
+        ContactList list = new ContactList();
+        list.add(contact);
+
+        assertThrows(ContactItem.InvalidContactItemException.class , () -> list.edit(0,new ContactItem(" ","", "    ", "")));
     }
 
     @Test
     public void editingSucceedsWithBlankEmail(){
+        ContactItem contact = new ContactItem("first","last", "423-000-0234", "email@email.com");
+        ContactList list = new ContactList();
+        list.add(contact);
 
+        assertDoesNotThrow(() -> list.edit(0,new ContactItem("first","last", "423-000-0234", "")));
     }
 
     @Test
     public void editingSucceedsWithBlankFirstName(){
+        ContactItem contact = new ContactItem("first","last", "423-000-0234", "email@email.com");
+        ContactList list = new ContactList();
+        list.add(contact);
 
+        assertDoesNotThrow(() -> list.edit(0,new ContactItem("","last", "423-000-0234", "email@email.com")));
     }
 
     @Test
     public void editingSucceedsWithBlankLastName(){
+        ContactItem contact = new ContactItem("first","last", "423-000-0234", "email@email.com");
+        ContactList list = new ContactList();
+        list.add(contact);
 
+        assertDoesNotThrow(() -> list.edit(0,new ContactItem("first","", "423-000-0234", "email@email.com")));
     }
 
     @Test
     public void editingSucceedsWithBlankPhone(){
+        ContactItem contact = new ContactItem("first","last", "423-000-0234", "email@email.com");
+        ContactList list = new ContactList();
+        list.add(contact);
 
+        assertDoesNotThrow(() -> list.edit(0,new ContactItem("first","last", "", "email@email.com")));
     }
 
     @Test
     public void editingSucceedsWithNonBlankValues(){
+        ContactItem contact = new ContactItem("first","last", "423-000-0234", "email@email.com");
+        ContactList list = new ContactList();
+        list.add(contact);
 
-    }
-
-    @Test
-    public void testToString(){
-
+        assertDoesNotThrow(() -> list.edit(0,new ContactItem("first","last", "423-000-0234", "email@email.com")));
     }
 }
