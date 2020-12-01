@@ -40,6 +40,13 @@ public class TaskItem {
         } catch(ParseException ex){
             return false;
         }
+
+        String[] yearMonthDay = dueDate.split("-");
+
+        if(yearMonthDay[0].length() < 4 | yearMonthDay[1].length() < 2 | yearMonthDay[2].length() < 2){
+            return false;
+        }
+
         return true;
     }
 

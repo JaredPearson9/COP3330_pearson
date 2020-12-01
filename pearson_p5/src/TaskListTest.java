@@ -85,18 +85,6 @@ public class TaskListTest {
     }
 
     @Test
-    public void editingTaskItemDueDateFailsWithInvalidIndex(){
-        TaskItem originalTask = new TaskItem("task 1", "","2020-01-01",false);
-
-        TaskList TL = new TaskList();
-        TL.add(originalTask);
-
-        TaskItem newTask = new TaskItem("task 1", "","2020-01-02",false);
-
-        assertThrows(IndexOutOfBoundsException.class , () -> TL.edit(1, newTask));
-    }
-
-    @Test
     public void editingTaskItemTitleChangesValue(){
         TaskItem originalTask = new TaskItem("task 1", "","2020-01-01",false);
 
@@ -111,6 +99,36 @@ public class TaskListTest {
     }
 
     @Test
+    public void editingDescriptionSucceedsWithExpectedValue(){
+        TaskList list = new TaskList();
+        TaskItem task = new TaskItem("Title","Description","2002-05-20",false);
+        list.add(task);
+
+        assertDoesNotThrow(() -> list.edit(0,new TaskItem("Title","Description2","2020-05-20",false)));
+        assertEquals(list.tasks.get(0).getTaskItemDescription(), "Description2");
+    }
+
+    @Test
+    public void editingDueDateSucceedsWithExpectedValue(){
+        TaskList list = new TaskList();
+        TaskItem task = new TaskItem("Title","Description","2002-05-20",false);
+        list.add(task);
+
+        assertDoesNotThrow(() -> list.edit(0,new TaskItem("Title","Description","2020-01-01",false)));
+        assertEquals(list.tasks.get(0).getTaskItemDueDate(), "2020-01-01");
+    }
+
+    @Test
+    public void editingItemTitleFailsWithEmptyString(){
+        TaskItem originalTask = new TaskItem("task 1", "","2020-01-01",false);
+
+        TaskList TL = new TaskList();
+        TL.add(originalTask);
+
+        assertThrows(TaskItem.InvalidTitleException.class , () -> TL.edit(0, new TaskItem("", "","2020-01-01",false)));
+    }
+
+    @Test
     public void editingTaskItemTitleFailsWithInvalidIndex(){
         TaskItem originalTask = new TaskItem("task 1", "","2020-01-01",false);
 
@@ -120,6 +138,49 @@ public class TaskListTest {
         TaskItem newTask = new TaskItem("task 2", "","2020-01-01",false);
 
         assertThrows(IndexOutOfBoundsException.class , () -> TL.edit(1, newTask));
+    }
+
+    @Test
+    public void editingItemTitleSucceedsWithExpectedValue(){
+        TaskItem originalTask = new TaskItem("task 1", "","2020-01-01",false);
+
+        TaskList TL = new TaskList();
+        TL.add(originalTask);
+
+        TaskItem newTask = new TaskItem("task 2", "","2020-01-01",false);
+
+        assertDoesNotThrow(() -> TL.edit(0, newTask));
+        assertEquals("task 2", TL.tasks.get(0).getTaskItemTitle());
+    }
+
+    @Test
+    public void editingTaskItemDueDateFailsWithInvalidDateFormat(){
+        TaskList list = new TaskList();
+        TaskItem task = new TaskItem("Title","Description","2002-05-20",false);
+        list.add(task);
+
+        assertThrows(TaskItem.InvalidDueDateException.class , () -> list.edit(0,new TaskItem("Title","Description","2020/05/20",false)));
+    }
+
+    @Test
+    public void editingTaskItemDueDateFailsWithInvalidIndex(){
+        TaskItem originalTask = new TaskItem("task 1", "","2020-01-01",false);
+
+        TaskList TL = new TaskList();
+        TL.add(originalTask);
+
+        TaskItem newTask = new TaskItem("task 1", "","2020-01-02",false);
+
+        assertThrows(IndexOutOfBoundsException.class , () -> TL.edit(1, newTask));
+    }
+
+    @Test
+    public void editingTaskItemDueDateFailsWithInvalidYYYMMDD(){
+        TaskList list = new TaskList();
+        TaskItem task = new TaskItem("Title","Description","2002-05-20",false);
+        list.add(task);
+
+        assertThrows(TaskItem.InvalidDueDateException.class , () -> list.edit(0,new TaskItem("Title","Description","202-0-20",false)));
     }
 
     @Test
