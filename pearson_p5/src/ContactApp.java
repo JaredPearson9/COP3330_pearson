@@ -88,7 +88,7 @@ public class ContactApp{
                             currentCL.edit(j, newItem);
                             retry = 0;
                         } catch (IndexOutOfBoundsException ex) {
-                            System.out.println("Index is out of bounds for task number chosen, choose an integer value to the left of one of the tasks");
+                            System.out.println("Index is out of bounds for contact number chosen, choose an integer value to the left of one of the contacts");
                             System.out.println(" ");
                         } catch (InputMismatchException ex) {
                             System.out.println("Please enter an integer");
@@ -127,7 +127,7 @@ public class ContactApp{
                             retry = 0;
 
                         } catch (IndexOutOfBoundsException ex) {
-                            System.out.println("Index is out of bounds for task number chosen, choose an integer value to the left of one of the tasks");
+                            System.out.println("Index is out of bounds for contact number chosen, choose an integer value to the left of one of the contacts");
                             System.out.println(" ");
                         } catch (InputMismatchException ex) {
                             System.out.println("Please enter an integer");
